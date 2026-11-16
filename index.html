@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>StreamMate · Vikbeing</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;800&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+<style>
+:root{--bg:#000;--bg2:#0b0714;--card:#150d26;--line:#2e1d52;--p:#7c3aed;--p2:#a78bfa;--acc:#e9d5ff;--hot:#fde047;--tx:#f5f3ff;--mu:#a99bd0;--ok:#4ade80;--bad:#fb7185}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.5 Sora,system-ui,sans-serif;display:flex;min-height:100vh}
+nav{width:210px;background:var(--bg2);border-right:1px solid var(--line);padding:16px 10px;position:sticky;top:0;height:100vh;flex:none}
+.logo{display:flex;gap:10px;align-items:center;margin:0 6px 18px;font-weight:800;font-size:19px}
+.logo i{width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,var(--p),#2e1065);display:grid;place-items:center;font-style:normal;border:1px dashed var(--p2)}
+nav button{display:block;width:100%;text-align:left;background:none;border:0;color:var(--mu);padding:10px 12px;border-radius:10px;font:inherit;cursor:pointer;margin:2px 0}
+nav button.on{background:var(--p);color:#fff;font-weight:600}nav button:hover:not(.on){background:var(--card);color:var(--tx)}
+main{flex:1;min-width:0;padding:0 22px 40px}
+header{display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding:14px 0;border-bottom:1px solid var(--line);position:sticky;top:0;background:var(--bg);z-index:5}
+header h1{font-size:18px;margin:0;margin-right:auto}header h1 small{color:var(--mu);font-weight:400;font-size:13px;display:block}
+.pill{border:1px solid var(--line);border-radius:99px;padding:4px 12px;font-size:13px;color:var(--mu)}.pill.live{color:#000;background:var(--hot);border-color:var(--hot);font-weight:600}
+button,.btn{font:inherit;cursor:pointer}.b{background:var(--p);color:#fff;border:0;border-radius:10px;padding:8px 14px;font-weight:600}.b:hover{background:#6d28d9}
+.g{background:none;color:var(--acc);border:1px solid var(--line);border-radius:10px;padding:7px 12px}.g:hover{border-color:var(--p2)}
+.r{background:none;color:var(--bad);border:1px solid #5b1d2c;border-radius:10px;padding:7px 12px}.hotb{background:var(--hot);color:#000;border:0;border-radius:10px;padding:8px 14px;font-weight:800}
+button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--hot);outline-offset:2px}
+h2{margin:22px 0 12px;font-size:22px}h3{margin:0 0 10px;font-size:15px;color:var(--acc)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px}.card.big{background:linear-gradient(135deg,#2e1065,var(--card));border-color:var(--p)}
+.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap;padding:8px 0;border-top:1px solid var(--line)}.row:first-of-type{border-top:0}.row .grow{flex:1;min-width:140px}
+.mu{color:var(--mu);font-size:13px}input,select,textarea{background:#0a0614;color:var(--tx);border:1px solid var(--line);border-radius:10px;padding:8px 10px;font:inherit;max-width:100%}textarea{width:100%;min-height:90px}
+.warn{background:#2a2306;border:1px solid #7a6a10;color:var(--hot);border-radius:12px;padding:10px 14px;font-size:13px;margin:10px 0}
+.tag{background:#2e1d52;color:var(--acc);border-radius:6px;padding:2px 8px;font-size:12px}.up{color:var(--ok)}.dn{color:var(--bad)}
+.week{display:grid;grid-template-columns:repeat(7,minmax(105px,1fr));gap:8px;overflow-x:auto}.day{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:8px;min-height:130px}.day.today{border-color:var(--hot)}
+.ev{background:var(--p);border-radius:8px;padding:4px 6px;font-size:12px;margin-top:5px;cursor:pointer}
+.bars{display:flex;gap:10px;align-items:flex-end;height:150px}.bars div{flex:1;background:linear-gradient(var(--p2),var(--p));border-radius:6px 6px 0 0;text-align:center;font-size:11px;color:#000;min-height:4px}
+#toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:var(--acc);color:#000;padding:10px 18px;border-radius:12px;font-weight:600;display:none;z-index:30}
+#dlg{position:fixed;inset:0;background:#000b;display:none;place-items:center;z-index:20}#dlg>div{background:var(--card);border:1px solid var(--p);border-radius:16px;padding:22px;max-width:380px;width:92%}
+#notes{position:fixed;right:14px;bottom:14px;width:260px;background:var(--card);border:1px solid var(--p);border-radius:14px;padding:12px;display:none;z-index:10}
+@media(max-width:760px){body{flex-direction:column}nav{width:100%;height:auto;position:static;display:flex;overflow-x:auto;padding:8px}nav .logo{display:none}nav button{width:auto;white-space:nowrap}main{padding:0 12px 40px}}
+@media(prefers-reduced-motion:no-preference){.card{transition:border-color .2s}.card:hover{border-color:var(--p2)}}
+</style></head><body>
+<nav aria-label="Principal"><div class="logo"><i title="Aquí va el logo de Vikbeing">V</i>StreamMate</div><div id="nav"></div></nav>
+<main>
+<header><h1>Vikbeing<small id="sub"></small></h1><span class="pill" id="live">Sin directo</span><span class="pill" id="timer">00:00:00</span>
+<button class="g" onclick="toggleLive()" id="lb">Iniciar temporizador</button><button class="g" onclick="$('notes').style.display=$('notes').style.display=='block'?'none':'block'">Notas</button>
+<button class="r" onclick="panic()">Pausar música</button><button class="g" id="auth" onclick="login()">Conectar Twitch</button></header>
+<div id="view"></div></main>
+<aside id="notes"><h3>Notas privadas</h3><textarea id="nt" oninput="S.notes=this.value;save()" placeholder="Solo las ves tú"></textarea></aside>
+<div id="dlg" role="dialog" aria-modal="true"><div><p id="dm"></p><div style="display:flex;gap:8px;justify-content:flex-end"><button class="g" onclick="dlg(0)">Cancelar</button><button class="b" id="dok">Confirmar</button></div></div></div><div id="toast" role="status"></div>
+<script>
+// ===== Configuración Supabase (clave ANON pública; nunca pongas service_role) =====
+const SUPABASE_URL='', SUPABASE_ANON_KEY='';
+const sb=(SUPABASE_URL&&window.supabase)?supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY):null;
+const $=id=>document.getElementById(id), esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const iso=d=>d.toISOString().slice(0,10), today=iso(new Date());
+const addD=n=>{const d=new Date();d.setDate(d.getDate()+n);return iso(d)};
+const DEF={tab:'Inicio',favs:[],notes:'',playing:true,modes:{slow:false,followers:false,subs:false},blocked:['spoiler','spam.link'],
+ events:[{id:1,date:addD(1),time:'20:00',title:'Noche de comunidad',game:'Just Chatting'},{id:2,date:addD(3),time:'19:30',title:'Ranked con la comunidad',game:'Valorant'}],
+ checks:[['Revisar audio y micrófono',0],['Actualizar título y categoría',0],['Probar escenas',0],['Anunciar en redes',0],['Agua y descanso listos',0]],
+ queue:[{id:1,t:'Midnight City',a:'M83',by:'neo_fan',s:'p'},{id:2,t:'Levitating',a:'Dua Lipa',by:'luna92',s:'p'},{id:3,t:'Blinding Lights',a:'The Weeknd',by:'Vikbeing',s:'ok'}],
+ hl:[{t:'00:12:40',n:'Clutch épico'}],tasks:[['Subir clip del clutch',0],['Responder comentarios',0],['Preparar miniatura',0]],
+ ideas:['Clip: mejor jugada de la semana','Post: horario semanal','Directo especial 100 seguidores nuevos'],goal:{name:'Seguidores del mes',now:312,max:500}};
+let S=JSON.parse(JSON.stringify(DEF)),user=null,liveStart=null,tick=null;
+try{Object.assign(S,JSON.parse(localStorage.getItem('sm')||'{}'))}catch(e){}
+const GAMES=[['Valorant','Shooter','es',812,4100,'Medio'],['Just Chatting','Charla','es',420,9800,'Bajo'],['Hades II','Acción','en',95,210,'Alto'],['Balatro','Estrategia','en',140,330,'Alto'],['Minecraft','Sandbox','es',560,6100,'Bajo'],['Hollow Knight: Silksong','Aventura','es',300,760,'Alto'],['EA Sports FC','Deportes','es',230,1500,'Medio']];
+const STATS=[['Lun',42],['Mar',0],['Mié',58],['Jue',63],['Vie',77],['Sáb',91],['Dom',70]];
+const CHAT=[['neo_fan','¡Buenas Vik!'],['luna92','esa jugada fue increíble'],['troll77','spam.link/gratis'],['pixel_kid','¿qué música es esta?']];
+const TABS=['Inicio','Juegos','Música','Calendario','Comunidad','Contenido','Estadísticas','Ajustes'];
+function save(){try{localStorage.setItem('sm',JSON.stringify(S))}catch(e){}
+ if(sb&&user)sb.from('app_state').upsert({user_id:user.id,key:'main',value:S,updated_at:new Date().toISOString()}).then(r=>{if(r.error)toast('No se pudo guardar en Supabase: '+r.error.message)})}
+function toast(m){const t=$('toast');t.textContent=m;t.style.display='block';clearTimeout(t._h);t._h=setTimeout(()=>t.style.display='none',2600)}
+function dlg(m,fn){$('dlg').style.display=m?'grid':'none';if(m){$('dm').textContent=m;$('dok').onclick=()=>{dlg(0);fn()}}}
+function ask(m,fn){dlg(m,fn)}
+async function login(){ if(!sb)return toast('Supabase sin configurar: modo demo. Mira el README.');
+ if(user){await sb.auth.signOut();user=null;paintAuth();return toast('Cuenta desconectada')}
+ sb.auth.signInWithOAuth({provider:'twitch',options:{redirectTo:location.href.split('#')[0]}})}
+function paintAuth(){$('auth').textContent=user?'Desconectar Twitch':'Conectar Twitch';$('sub').textContent=user?'Conectado como '+(user.user_metadata?.name||'Vikbeing'):'Modo demo · datos de ejemplo'}
+async function init(){paintAuth();if(sb){const{data}=await sb.auth.getSession();user=data.session?.user||null;
+ if(user){const r=await sb.from('app_state').select('value').eq('key','main').maybeSingle();if(r.data)Object.assign(S,r.data.value);paintAuth()}}
+ $('nt').value=S.notes;go(S.tab)}
+function go(t){S.tab=t;$('nav').innerHTML=TABS.map(x=>`<button class="${x==t?'on':''}" onclick="go('${x}')" ${x==t?'aria-current="page"':''}>${x}</button>`).join('');$('view').innerHTML=V[t]();}
+function toggleLive(){if(liveStart){ask('¿Detener el temporizador del directo?',()=>{clearInterval(tick);liveStart=null;$('live').className='pill';$('live').textContent='Sin directo';$('lb').textContent='Iniciar temporizador'})}
+ else{liveStart=Date.now();$('live').className='pill live';$('live').textContent='En directo';$('lb').textContent='Detener';tick=setInterval(()=>{const s=Math.floor((Date.now()-liveStart)/1000);$('timer').textContent=[s/3600,s/60%60,s%60].map(n=>String(Math.floor(n)).padStart(2,'0')).join(':');if(s&&s%2700==0)toast('Recordatorio: bebe agua y descansa la vista')},1000)}}
+function panic(){S.playing=false;save();toast('Música pausada');if(S.tab=='Música'||S.tab=='Inicio')go(S.tab)}
+const nowT=()=>$('timer').textContent;
+const src=(s)=>`<p class="mu">Fuente: ${s} · Actualizado: ${new Date().toLocaleDateString('es')} · Datos de demostración</p>`;
+const cur=()=>S.queue.find(q=>q.s=='ok')||{t:'—',a:'',by:''};
+const V={
+Inicio(){const nx=S.events.filter(e=>e.date>=today).sort((a,b)=>a.date+a.time>b.date+b.time?1:-1)[0],c=cur(),done=S.checks.filter(x=>x[1]).length;
+return `<h2>Hola, Vikbeing 👋</h2><div class="grid"><div class="card big"><h3>Próximo directo</h3>${nx?`<b style="font-size:20px">${esc(nx.title)}</b><p class="mu">${nx.date} · ${nx.time}</p><span class="tag">${esc(nx.game)}</span>`:'<p>No hay directos planeados.</p><button class="b" onclick="go(\'Calendario\')">Planificar uno</button>'}</div>
+<div class="card"><h3>Lista de preparación (${done}/${S.checks.length})</h3>${S.checks.map((x,i)=>`<label class="row"><input type="checkbox" ${x[1]?'checked':''} onchange="S.checks[${i}][1]=this.checked?1:0;save();go('Inicio')"> ${esc(x[0])}</label>`).join('')}</div>
+<div class="card"><h3>Sonando ahora</h3><b>${esc(c.t)}</b> <span class="mu">${esc(c.a)}</span><p class="mu">Sugerida por ${esc(c.by)} · ${S.playing?'Reproduciendo':'En pausa'}</p><button class="g" onclick="S.playing=!S.playing;save();go('Inicio')">${S.playing?'Pausar':'Reproducir'}</button></div>
+<div class="card"><h3>Actividad reciente</h3>${['⭐ luna92 te siguió','🎁 neo_fan se suscribió (Nivel 1)','🚀 PixelRaid trajo 24 espectadores','💬 3 sugerencias de canciones por revisar'].map(a=>`<div class="row">${a}</div>`).join('')}${src('eventos de ejemplo')}</div></div>`},
+Juegos(){const f=window.gf||{c:'',l:'',o:'oport'};let L=GAMES.filter(g=>(!f.c||g[1]==f.c)&&(!f.l||g[2]==f.l));L.sort((a,b)=>f.o=='oport'?a[4]/a[3]-b[4]/b[3]:f.o=='viewers'?b[3]-a[3]:b[4]-a[4]);
+const opt=(a,v)=>a.map(x=>`<option ${x==v?'selected':''}>${x}</option>`).join('');
+return `<h2>Juegos recomendados</h2><div class="row"><select onchange="gf={...(window.gf||f),c:this.value};go('Juegos')"><option value="">Todas las categorías</option>${opt([...new Set(GAMES.map(g=>g[1]))],f.c)}</select>
+<select onchange="gf={...(window.gf||f),l:this.value};go('Juegos')"><option value="">Todos los idiomas</option><option value="es" ${f.l=='es'?'selected':''}>es</option><option value="en" ${f.l=='en'?'selected':''}>en</option></select>
+<select onchange="gf={...(window.gf||f),o:this.value};go('Juegos')"><option value="oport">Más descubrimiento</option><option value="viewers" ${f.o=='viewers'?'selected':''}>Más espectadores</option><option value="canales" ${f.o=='canales'?'selected':''}>Más canales</option></select></div>
+<div class="grid">${L.map(g=>`<div class="card"><b>${g[0]}</b> <span class="tag">${g[1]}</span> <span class="tag">${g[2]}</span><p class="mu">${g[3]}k espectadores · ${g[4]} canales · descubrimiento <b>${g[5]}</b></p>
+<p class="mu">Pensado para una comunidad en crecimiento como la de Vikbeing: menos canales por espectador = más visibilidad.</p><textarea style="min-height:44px" placeholder="Nota" oninput="S.gn=S.gn||{};S.gn['${g[0]}']=this.value;save()">${esc((S.gn||{})[g[0]]||'')}</textarea>
+<div class="row"><button class="g" onclick="fav('${g[0]}')">${S.favs.includes(g[0])?'★ Favorito':'☆ Guardar'}</button><button class="b" onclick="sched('${g[0]}')">Programar</button></div></div>`).join('')}</div>${src('API de Twitch (categorías) — pendiente de conectar')}`},
+Música(){const c=cur();return `<h2>Música</h2><div class="warn">Aviso de licencias: que una canción esté en Spotify no significa que esté libre de derechos para tu directo. Revisa la política de música de Twitch y usa música con licencia para streaming cuando quieras evitar reclamaciones en VODs y clips.</div>
+<div class="grid"><div class="card big"><h3>Reproductor (demo)</h3><b>${esc(c.t)}</b> <span class="mu">${esc(c.a)} · sugerida por ${esc(c.by)}</span><div class="row"><button class="b" onclick="S.playing=!S.playing;save();go('Música')">${S.playing?'Pausar':'Reproducir'}</button><button class="g" onclick="skip()">Saltar</button><label class="mu">Volumen <input type="range" min="0" max="100" value="60"></label></div><p class="mu">El control real de Spotify requiere Premium y la API oficial (ver README).</p></div>
+<div class="card"><h3>Sugerir canción</h3><div class="row"><input id="st" placeholder="Título"><input id="sa" placeholder="Artista"><button class="b" onclick="sugg()">Añadir</button></div></div></div>
+<h3 style="margin-top:20px">Cola de sugerencias</h3><div class="card">${S.queue.map(q=>`<div class="row"><div class="grow"><b>${esc(q.t)}</b> — ${esc(q.a)}<div class="mu">por ${esc(q.by)} · ${{p:'Pendiente',ok:'Aprobada',x:'Rechazada'}[q.s]}</div></div>
+${q.s=='p'?`<button class="b" onclick="qs(${q.id},'ok')">Aprobar</button><button class="g" onclick="qs(${q.id},'x')">Rechazar</button>`:''}<button class="r" onclick="ask('¿Bloquear esta canción para siempre?',()=>{S.queue=S.queue.filter(z=>z.id!=${q.id});save();go('Música')})">Bloquear</button></div>`).join('')||'<p class="mu">Sin sugerencias todavía.</p>'}</div>`},
+Calendario(){const d0=new Date();d0.setDate(d0.getDate()-((d0.getDay()+6)%7));const ds=[...Array(7)].map((_,i)=>{const d=new Date(d0);d.setDate(d0.getDate()+i);return iso(d)});
+return `<h2>Calendario semanal</h2><div class="week">${ds.map(d=>`<div class="day ${d==today?'today':''}"><b>${new Date(d+'T12:00').toLocaleDateString('es',{weekday:'short',day:'numeric'})}</b>${S.events.filter(e=>e.date==d).map(e=>`<div class="ev" onclick="ask('¿Eliminar «${esc(e.title)}»?',()=>{S.events=S.events.filter(z=>z.id!=${e.id});save();go('Calendario')})">${e.time} ${esc(e.title)}<br>${esc(e.game)}</div>`).join('')}</div>`).join('')}</div>
+<h3 style="margin-top:20px">Planificar directo</h3><div class="card row"><input type="date" id="ed" value="${today}"><input type="time" id="et" value="20:00"><input id="etl" placeholder="Título"><input id="eg" placeholder="Juego"><button class="b" onclick="addEv()">Guardar</button></div><p class="mu">Toca un evento para eliminarlo. Sincronizar con Google Calendar: pendiente de integración.</p>`},
+Comunidad(){return `<h2>Comunidad y moderación</h2><div class="grid"><div class="card"><h3>Chat (demo)</h3>${CHAT.map(m=>`<div class="row"><div class="grow"><b>${m[0]}</b>: ${esc(m[1])}</div><button class="g" onclick="ask('¿Silenciar 10 min a ${m[0]}?',()=>toast('Demo: acción simulada'))">Timeout</button></div>`).join('')}<p class="mu">Moderar de verdad necesita la API de Twitch vía Edge Function.</p></div>
+<div class="card"><h3>Modos del chat</h3>${[['slow','Modo lento'],['followers','Solo seguidores'],['subs','Solo suscriptores']].map(m=>`<label class="row"><input type="checkbox" ${S.modes[m[0]]?'checked':''} onchange="S.modes['${m[0]}']=this.checked;save();toast('${m[1]}: '+(this.checked?'activado':'desactivado')+' (demo)')"> ${m[1]}</label>`).join('')}</div>
+<div class="card"><h3>Términos bloqueados</h3>${S.blocked.map((b,i)=>`<span class="tag">${esc(b)} <a href="#" onclick="S.blocked.splice(${i},1);save();go('Comunidad');return false" aria-label="Quitar">✕</a></span> `).join('')}<div class="row"><input id="bt" placeholder="Nuevo término"><button class="b" onclick="if($('bt').value.trim()){S.blocked.push($('bt').value.trim());save();go('Comunidad')}">Añadir</button></div></div>
+<div class="card"><h3>Roles</h3><div class="row"><div class="grow">Moderadores</div><span class="tag">Chat, términos</span></div><div class="row"><div class="grow">Colaboradores</div><span class="tag">Música, calendario</span></div><p class="mu">Gestión de roles: pendiente de backend.</p></div></div>`},
+Contenido(){return `<h2>Contenido y promoción</h2><div class="grid"><div class="card"><h3>Momentos destacados</h3><div class="row"><input id="hn" placeholder="Nota del momento"><button class="hotb" onclick="addHl()">Marcar ahora (${nowT()})</button></div>${S.hl.map(h=>`<div class="row"><span class="tag">${h.t}</span> ${esc(h.n)}</div>`).join('')}</div>
+<div class="card"><h3>Tareas antes y después</h3>${S.tasks.map((x,i)=>`<label class="row"><input type="checkbox" ${x[1]?'checked':''} onchange="S.tasks[${i}][1]=this.checked?1:0;save()"> ${esc(x[0])}</label>`).join('')}</div>
+<div class="card"><h3>Ideas</h3>${S.ideas.map(i=>`<div class="row">${esc(i)}</div>`).join('')}</div>
+<div class="card"><h3>Plantilla de anuncio</h3><textarea id="tp" oninput="S.tp=this.value;save()">${esc(S.tp||'🔴 Hoy en directo en twitch.tv/vikbeing\n🎮 [Juego]\n🕗 [Hora]\n¡Os espero!')}</textarea><button class="g" onclick="navigator.clipboard&&navigator.clipboard.writeText($('tp').value);toast('Copiado')">Copiar</button></div></div>`},
+Estadísticas(){const m=Math.max(...STATS.map(s=>s[1]));return `<h2>Estadísticas</h2><div class="grid"><div class="card"><h3>Espectadores medios por día</h3><div class="bars">${STATS.map(s=>`<div style="height:${s[1]/m*100}%">${s[1]}</div>`).join('')}</div><p class="mu">${STATS.map(s=>s[0]).join(' · ')}</p></div>
+<div class="card"><h3>Objetivo: ${esc(S.goal.name)}</h3><progress value="${S.goal.now}" max="${S.goal.max}" style="width:100%;height:18px"></progress><p>${S.goal.now} / ${S.goal.max} <span class="up">+12% vs. semana pasada</span></p><button class="g" onclick="S.goal.now+=10;save();go('Estadísticas')">+10 (demo)</button></div></div><p class="mu">Gráficos de ejemplo. Con Twitch conectado se usarán solo datos autorizados; las estimaciones no son cifras oficiales.</p>`},
+Ajustes(){return `<h2>Ajustes</h2><div class="grid"><div class="card"><h3>Integraciones</h3><div class="row"><div class="grow">Twitch</div><span class="tag">${user?'Conectado':'Desconectado'}</span><button class="g" onclick="login()">${user?'Desconectar':'Conectar'}</button></div><div class="row"><div class="grow">Spotify</div><span class="tag">Pendiente</span><button class="g" onclick="toast('Requiere Edge Function con OAuth de Spotify')">Conectar</button></div>
+<p class="mu">Nunca pedimos contraseñas: el acceso usa OAuth oficial.</p></div>
+<div class="card"><h3>Qué se guarda</h3><p class="mu">Tu calendario, cola, notas, favoritos y ajustes, en tu cuenta de Supabase (solo tú puedes leerlos). Sin cuenta, se guardan en este navegador.</p><button class="r" onclick="ask('¿Borrar todos tus datos de StreamMate?',()=>{S=JSON.parse(JSON.stringify(DEF));save();go('Inicio')})">Restablecer datos</button></div>
+<div class="card"><h3>Marca</h3><p class="mu">Zona horaria: ${Intl.DateTimeFormat().resolvedOptions().timeZone} · Idioma: español. Sustituye la «V» del menú por el logo de Vikbeing y ajusta los colores en <code>:root</code> del CSS.</p></div></div>`}};
+function fav(g){S.favs=S.favs.includes(g)?S.favs.filter(x=>x!=g):[...S.favs,g];save();go('Juegos')}
+function sched(g){S.events.push({id:Date.now(),date:addD(2),time:'20:00',title:'Directo de '+g,game:g});save();toast('Programado para el '+addD(2)+' (edítalo en Calendario)')}
+function qs(id,s){S.queue.forEach(q=>{if(q.id==id)q.s=s});save();go('Música')}
+function skip(){const i=S.queue.findIndex(q=>q.s=='ok');if(i>=0)S.queue[i].s='x';const n=S.queue.find(q=>q.s=='p');if(n)n.s='ok';save();go('Música')}
+function sugg(){const t=$('st').value.trim();if(!t)return toast('Escribe un título');if(S.queue.some(q=>q.t.toLowerCase()==t.toLowerCase()))return toast('Esa canción ya está en la cola');S.queue.push({id:Date.now(),t,a:$('sa').value.trim(),by:'comunidad',s:'p'});save();go('Música')}
+function addEv(){const t=$('etl').value.trim();if(!t)return toast('Añade un título');S.events.push({id:Date.now(),date:$('ed').value,time:$('et').value,title:t,game:$('eg').value||'Por definir'});save();go('Calendario');toast('Directo guardado')}
+function addHl(){S.hl.unshift({t:nowT(),n:$('hn').value||'Momento destacado'});save();go('Contenido')}
+init();
+</script></body></html>
