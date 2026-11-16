@@ -46,7 +46,7 @@ h2{margin:22px 0 12px;font-size:22px}h3{margin:0 0 10px;font-size:15px;color:var
 <div id="dlg" role="dialog" aria-modal="true"><div><p id="dm"></p><div style="display:flex;gap:8px;justify-content:flex-end"><button class="g" onclick="dlg(0)">Cancelar</button><button class="b" id="dok">Confirmar</button></div></div></div><div id="toast" role="status"></div>
 <script>
 // ===== Configuración Supabase (clave ANON pública; nunca pongas service_role) =====
-const SUPABASE_URL='', SUPABASE_ANON_KEY='';
+const SUPABASE_URL='https://zgxnyqftfebnzjerulyu.supabase.co', SUPABASE_ANON_KEY='sb_publishable_zuE0T9fMYo9bYEqTLmRYkA_a6xC8DIe';
 const sb=(SUPABASE_URL&&window.supabase)?supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY):null;
 const $=id=>document.getElementById(id), esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const iso=d=>d.toISOString().slice(0,10), today=iso(new Date());
