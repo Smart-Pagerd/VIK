@@ -2,7 +2,7 @@
 <html lang="es"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>StreamMate · Vikbeing</title>
-<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;800&family=Unbounded:wght@500;700&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
 <style>
 :root{--bg:#000;--bg2:#0b0714;--card:#150d26;--line:#2e1d52;--p:#7c3aed;--p2:#a78bfa;--acc:#e9d5ff;--hot:#fde047;--tx:#f5f3ff;--mu:#a99bd0;--ok:#4ade80;--bad:#fb7185}
@@ -36,6 +36,58 @@ h2{margin:22px 0 12px;font-size:22px}h3{margin:0 0 10px;font-size:15px;color:var
 body.comm .oo,body.comm #live,body.comm #timer,body.comm #notes{display:none!important}body.login .oo,body.login #live,body.login #timer,body.login #notes,body.login #vb,body.login #auth,body.login nav{display:none!important}
 @media(max-width:760px){body{flex-direction:column}nav{width:100%;height:auto;position:static;display:flex;overflow-x:auto;padding:8px}nav .logo{display:none}nav button{width:auto;white-space:nowrap}main{padding:0 12px 40px}}
 @media(prefers-reduced-motion:no-preference){.card{transition:border-color .2s}.card:hover{border-color:var(--p2)}}
+</style><style id="v2">
+@property --a{syntax:'<angle>';initial-value:0deg;inherits:false}
+::selection{background:#7c3aed;color:#fff}
+*{scrollbar-width:thin;scrollbar-color:#4c1d95 transparent}
+body::before{content:"";position:fixed;inset:-20%;z-index:0;pointer-events:none;background:radial-gradient(40% 35% at 20% 15%,#6d28d955,transparent 70%),radial-gradient(35% 40% at 85% 25%,#a78bfa30,transparent 70%),radial-gradient(45% 40% at 60% 95%,#4c1d9566,transparent 70%);animation:aur 24s ease-in-out infinite alternate}
+body::after{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;background-image:radial-gradient(#ffffff16 1px,transparent 1px);background-size:26px 26px;-webkit-mask-image:radial-gradient(ellipse at 70% 0,#000,transparent 70%);mask-image:radial-gradient(ellipse at 70% 0,#000,transparent 70%)}
+main{position:relative;z-index:1}nav{z-index:3;background:#07050dcc;backdrop-filter:blur(14px)}
+h1,h2,.logo,.cd{font-family:Unbounded,Sora,sans-serif}
+h2{font-size:24px;letter-spacing:-.01em;background:linear-gradient(90deg,#fff,#d8b4fe,#fff);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:sh 7s linear infinite}
+header{background:#000000b8;backdrop-filter:blur(16px);border-bottom-color:#4c1d9588}
+.logo i{background:conic-gradient(from var(--a),#7c3aed,#e9d5ff,#4c1d95,#7c3aed);border:0;color:#fff;font-family:Unbounded;animation:spin 5s linear infinite;box-shadow:0 0 22px #7c3aed99}
+nav button{display:flex;gap:10px;align-items:center;transition:transform .2s,background .2s,box-shadow .3s}
+nav button:hover:not(.on){transform:translateX(4px)}
+nav button.on{background:linear-gradient(135deg,#8b5cf6,#5b21b6);box-shadow:0 10px 26px -10px #a78bfa,inset 0 0 0 1px #ffffff26}
+.ic{width:22px;text-align:center;transition:transform .25s}nav button:hover .ic{transform:scale(1.3) rotate(-8deg)}
+.card{position:relative;overflow:hidden;background:linear-gradient(160deg,#7c3aed24,#150d26e6 55%);border-color:#4c1d9599;backdrop-filter:blur(6px);transition:border-color .25s,transform .25s,box-shadow .3s}
+.card>*{position:relative}
+.card::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity .3s;background:radial-gradient(260px circle at var(--mx,50%) var(--my,50%),#a78bfa33,transparent 70%)}
+.card:hover{transform:translateY(-3px);border-color:var(--p2);box-shadow:0 18px 40px -18px #7c3aedcc}.card:hover::before{opacity:1}
+.card.big{border:1.5px solid transparent;background:linear-gradient(135deg,#2e1065,#150d26) padding-box,conic-gradient(from var(--a),#7c3aed,#e9d5ff,#fde047,#7c3aed) border-box;animation:spin 6s linear infinite}
+.card img{transition:transform .6s}.card:hover img{transform:scale(1.05)}
+.b,.hotb{position:relative;overflow:hidden;transition:transform .15s,box-shadow .25s,filter .2s}
+.b{background:linear-gradient(135deg,#8b5cf6,#6d28d9);box-shadow:0 8px 22px -8px #8b5cf6}.b:hover{background:linear-gradient(135deg,#a78bfa,#7c3aed);transform:translateY(-2px);box-shadow:0 12px 28px -8px #a78bfa}
+.hotb{box-shadow:0 8px 22px -8px #fde047}.hotb:hover{transform:translateY(-2px) scale(1.03);filter:brightness(1.08)}
+.b:active,.hotb:active,.g:active,.r:active{transform:scale(.96)}
+.b::after,.hotb::after{content:"";position:absolute;top:0;left:-70%;width:45%;height:100%;background:linear-gradient(100deg,transparent,#ffffff55,transparent);transform:skewX(-20deg);transition:left .6s}.b:hover::after,.hotb:hover::after{left:130%}
+.g,.r{transition:all .2s}.g:hover{background:#7c3aed22;border-color:var(--p2);transform:translateY(-1px)}.r:hover{background:#fb71851f}
+input:focus,select:focus,textarea:focus{border-color:var(--p2);box-shadow:0 0 0 3px #7c3aed44;outline:0}
+.tag{background:linear-gradient(135deg,#3b1d73,#2e1d52);border:1px solid #4c1d95}
+.row{transition:background .2s,padding .2s;border-radius:8px}.row:hover{background:#7c3aed14}
+.pill.live{position:relative;padding-left:26px}.pill.live::before{content:"";position:absolute;left:11px;top:50%;width:8px;height:8px;margin-top:-4px;border-radius:50%;background:#e11d48;animation:ping 1.2s infinite}
+#timer{font-variant-numeric:tabular-nums}
+.cd{font-size:30px;font-weight:700;margin:10px 0 2px;color:var(--acc);text-shadow:0 0 24px #a78bfa;font-variant-numeric:tabular-nums}
+.eq{display:inline-flex;gap:2px;align-items:flex-end;height:14px;margin-left:8px}.eq i{width:3px;height:3px;background:var(--hot);border-radius:2px}.eq.on i{animation:eq .8s ease-in-out infinite alternate}.eq i:nth-child(2){animation-delay:.2s!important}.eq i:nth-child(3){animation-delay:.4s!important}.eq i:nth-child(4){animation-delay:.1s!important}
+.bars div{transform-origin:bottom;animation:grow .9s cubic-bezier(.2,.8,.2,1) both;border-radius:8px 8px 0 0;box-shadow:0 0 18px -4px #a78bfa}
+.bars div:nth-child(2){animation-delay:.08s}.bars div:nth-child(3){animation-delay:.16s}.bars div:nth-child(4){animation-delay:.24s}.bars div:nth-child(5){animation-delay:.32s}.bars div:nth-child(6){animation-delay:.4s}.bars div:nth-child(7){animation-delay:.48s}
+progress{appearance:none;-webkit-appearance:none;height:14px!important;border:0;border-radius:99px;overflow:hidden;background:#1d1236}
+progress::-webkit-progress-bar{background:#1d1236}progress::-webkit-progress-value{background:linear-gradient(90deg,#7c3aed,#e9d5ff);border-radius:99px;transition:width .8s}progress::-moz-progress-bar{background:linear-gradient(90deg,#7c3aed,#e9d5ff);border-radius:99px}
+.day{transition:transform .2s,border-color .2s}.day:hover{transform:translateY(-3px);border-color:var(--p2)}.day.today{box-shadow:0 0 0 1px var(--hot),0 0 26px -6px #fde04766}
+.ev{background:linear-gradient(135deg,#8b5cf6,#5b21b6);transition:transform .15s}.ev:hover{transform:scale(1.04)}
+#toast{animation:pop .35s cubic-bezier(.2,1.4,.4,1);box-shadow:0 14px 40px -10px #a78bfa;background:linear-gradient(135deg,#f3e8ff,#d8b4fe)}
+#dlg{backdrop-filter:blur(6px)}#dlg>div{animation:pop .3s cubic-bezier(.2,1.4,.4,1);box-shadow:0 30px 80px -20px #7c3aed}
+#notes{backdrop-filter:blur(10px);animation:pop .3s}
+.orb{width:68px;height:68px;border-radius:50%;margin:0 auto 14px;display:grid;place-items:center;font:700 28px Unbounded;background:conic-gradient(from var(--a),#7c3aed,#e9d5ff,#4c1d95,#7c3aed);box-shadow:0 0 40px #8b5cf6aa;animation:spin 5s linear infinite,fl 4s ease-in-out infinite}
+body.login header{display:none}body.login main{display:grid;place-items:center;min-height:100vh}body.login #view{width:100%}body.login h2{text-align:center}
+.enter .card,.enter .day{animation:rise .6s cubic-bezier(.2,.75,.2,1) both;animation-delay:calc(var(--i,0)*55ms)}
+.enter .card.big{animation:rise .6s cubic-bezier(.2,.75,.2,1) both,spin 6s linear infinite}
+@keyframes rise{from{opacity:0;transform:translateY(20px) scale(.98)}}
+@keyframes spin{to{--a:360deg}}@keyframes sh{to{background-position:-200% 0}}@keyframes aur{to{transform:translate3d(4%,3%,0) rotate(6deg) scale(1.08)}}
+@keyframes ping{0%{box-shadow:0 0 0 0 #e11d48aa}100%{box-shadow:0 0 0 9px #e11d4800}}@keyframes eq{to{height:14px}}@keyframes grow{from{transform:scaleY(0)}}
+@keyframes pop{from{opacity:0;transform:scale(.9) translateY(8px)}}@keyframes fl{50%{translate:0 -8px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
 </style></head><body>
 <nav aria-label="Principal"><div class="logo"><i title="Aquí va el logo de Vikbeing">V</i>StreamMate</div><div id="nav"></div></nav>
 <main>
@@ -83,10 +135,10 @@ const mod=()=>isOwner&&!asComm;
 const TC=['Sugerir juego','Sugerir música','Sugerencias'];
 function render(){const m=mode();document.body.className=m=='owner'?'':m;const T=m=='owner'?TABS:TC;if(!T.includes(S.tab))S.tab=T[0];
  $('vb').style.display=(sb&&user&&isOwner)?'':'none';$('vb').textContent=asComm?'Vista administrador':'Vista comunidad';
- $('nav').innerHTML=m=='login'?'':T.map(x=>`<button class="${x==S.tab?'on':''}" onclick="go('${x}')" ${x==S.tab?'aria-current="page"':''}>${x}</button>`).join('');
- $('view').innerHTML=m=='login'?loginV():m=='comm'?VC[S.tab]():V[S.tab]()}
+ $('nav').innerHTML=m=='login'?'':T.map(x=>`<button class="${x==S.tab?'on':''}" onclick="go('${x}')" ${x==S.tab?'aria-current="page"':''}><span class="ic">${IC[x]||''}</span>${x}</button>`).join('');
+ $('view').innerHTML=m=='login'?loginV():m=='comm'?VC[S.tab]():V[S.tab]();enter()}
 function go(t){S.tab=t;render()}
-function loginV(){return `<div class="card big" style="max-width:420px;margin:40px auto"><h2 style="margin-top:0">Bienvenido a StreamMate</h2><p class="mu">Entra para sugerir juegos y música a Vikbeing. Si eres el administrador del canal, verás tu panel de control automáticamente.</p><button class="b" style="width:100%" onclick="login()">Entrar con Twitch</button><p class="mu" style="text-align:center">o con correo</p><input id="le" type="email" placeholder="Correo" style="width:100%;margin-bottom:8px"><input id="lp" type="password" placeholder="Contraseña (mínimo 8 caracteres)" style="width:100%"><div class="row"><button class="g" onclick="emailAuth(0)">Entrar</button><button class="g" onclick="emailAuth(1)">Crear cuenta</button></div><button class="g" style="width:100%" onclick="demo=true;render()">Explorar demo del panel</button></div>`}
+function loginV(){return `<div class="card big" style="max-width:420px;margin:40px auto"><div class="orb" title="Aquí va el logo de Vikbeing">V</div><h2 style="margin-top:0">Bienvenido a StreamMate</h2><p class="mu">Entra para sugerir juegos y música a Vikbeing. Si eres el administrador del canal, verás tu panel de control automáticamente.</p><button class="b" style="width:100%" onclick="login()">Entrar con Twitch</button><p class="mu" style="text-align:center">o con correo</p><input id="le" type="email" placeholder="Correo" style="width:100%;margin-bottom:8px"><input id="lp" type="password" placeholder="Contraseña (mínimo 8 caracteres)" style="width:100%"><div class="row"><button class="g" onclick="emailAuth(0)">Entrar</button><button class="g" onclick="emailAuth(1)">Crear cuenta</button></div><button class="g" style="width:100%" onclick="demo=true;render()">Explorar demo del panel</button></div>`}
 async function emailAuth(up){const e=$('le').value.trim(),w=$('lp').value;if(!e||w.length<8)return toast('Escribe tu correo y una contraseña de 8 o más caracteres');
  const r=up?await sb.auth.signUp({email:e,password:w}):await sb.auth.signInWithPassword({email:e,password:w});if(r.error)return toast(r.error.message);if(up&&!r.data.session)toast('Revisa tu correo para confirmar la cuenta')}
 function toggleLive(){if(liveStart){ask('¿Detener el temporizador del directo?',()=>{clearInterval(tick);liveStart=null;$('live').className='pill';$('live').textContent='Sin directo';$('lb').textContent='Iniciar temporizador'})}
@@ -97,9 +149,9 @@ const src=(s)=>`<p class="mu">Fuente: ${s} · Actualizado: ${new Date().toLocale
 const cur=()=>S.queue.find(q=>q.s=='ok')||{t:'—',a:'',by:''};
 const V={
 Inicio(){const nx=S.events.filter(e=>e.date>=today).sort((a,b)=>a.date+a.time>b.date+b.time?1:-1)[0],c=cur(),done=S.checks.filter(x=>x[1]).length;
-return `<h2>Hola, Vikbeing 👋</h2><div class="grid"><div class="card big"><h3>Próximo directo</h3>${nx?`<b style="font-size:20px">${esc(nx.title)}</b><p class="mu">${nx.date} · ${nx.time}</p><span class="tag">${esc(nx.game)}</span>`:'<p>No hay directos planeados.</p><button class="b" onclick="go(\'Calendario\')">Planificar uno</button>'}</div>
+return `<h2>Hola, Vikbeing 👋</h2><div class="grid"><div class="card big"><h3>Próximo directo</h3>${nx?`<b style="font-size:20px">${esc(nx.title)}</b><p class="mu">${nx.date} · ${nx.time}</p><div class="cd" data-t="${nx.date}T${nx.time}">…</div><span class="tag">${esc(nx.game)}</span>`:'<p>No hay directos planeados.</p><button class="b" onclick="go(\'Calendario\')">Planificar uno</button>'}</div>
 <div class="card"><h3>Lista de preparación (${done}/${S.checks.length})</h3>${S.checks.map((x,i)=>`<label class="row"><input type="checkbox" ${x[1]?'checked':''} onchange="S.checks[${i}][1]=this.checked?1:0;save();go('Inicio')"> ${esc(x[0])}</label>`).join('')}</div>
-<div class="card"><h3>Sonando ahora</h3><b>${esc(c.t)}</b> <span class="mu">${esc(c.a)}</span><p class="mu">Sugerida por ${esc(c.by)} · ${S.playing?'Reproduciendo':'En pausa'}</p><button class="g" onclick="S.playing=!S.playing;save();go('Inicio')">${S.playing?'Pausar':'Reproducir'}</button></div>
+<div class="card"><h3>Sonando ahora<span class="eq ${S.playing?'on':''}"><i></i><i></i><i></i><i></i></span></h3><b>${esc(c.t)}</b> <span class="mu">${esc(c.a)}</span><p class="mu">Sugerida por ${esc(c.by)} · ${S.playing?'Reproduciendo':'En pausa'}</p><button class="g" onclick="S.playing=!S.playing;save();go('Inicio')">${S.playing?'Pausar':'Reproducir'}</button></div>
 <div class="card"><h3>Actividad reciente</h3>${['⭐ luna92 te siguió','🎁 neo_fan se suscribió (Nivel 1)','🚀 PixelRaid trajo 24 espectadores','💬 3 sugerencias de canciones por revisar'].map(a=>`<div class="row">${a}</div>`).join('')}${src('eventos de ejemplo')}</div></div>`},
 Juegos(){const f=window.gf||{c:'',l:'',o:'oport'};let L=GAMES.filter(g=>(!f.c||g[1]==f.c)&&(!f.l||g[2]==f.l));L.sort((a,b)=>f.o=='oport'?a[4]/a[3]-b[4]/b[3]:f.o=='viewers'?b[3]-a[3]:b[4]-a[4]);
 const opt=(a,v)=>a.map(x=>`<option ${x==v?'selected':''}>${x}</option>`).join('');
@@ -110,7 +162,7 @@ return `<h2>Juegos recomendados</h2><div class="row"><select onchange="gf={...(w
 <p class="mu">Pensado para una comunidad en crecimiento como la de Vikbeing: menos canales por espectador = más visibilidad.</p><textarea style="min-height:44px" placeholder="Nota" oninput="S.gn=S.gn||{};S.gn['${g[0]}']=this.value;save()">${esc((S.gn||{})[g[0]]||'')}</textarea>
 <div class="row"><button class="g" onclick="fav('${g[0]}')">${S.favs.includes(g[0])?'★ Favorito':'☆ Guardar'}</button><button class="b" onclick="sched('${g[0]}')">Programar</button></div></div>`).join('')}</div>${comG()}${src('API de Twitch (categorías) — pendiente de conectar')}`},
 Música(){const c=cur();return `<h2>Música</h2><div class="warn">Aviso de licencias: que una canción esté en Spotify no significa que esté libre de derechos para tu directo. Revisa la política de música de Twitch y usa música con licencia para streaming cuando quieras evitar reclamaciones en VODs y clips.</div>
-<div class="grid"><div class="card big"><h3>Reproductor (demo)</h3><b>${esc(c.t)}</b> <span class="mu">${esc(c.a)} · sugerida por ${esc(c.by)}</span><div class="row"><button class="b" onclick="S.playing=!S.playing;save();go('Música')">${S.playing?'Pausar':'Reproducir'}</button><button class="g" onclick="skip()">Saltar</button><label class="mu">Volumen <input type="range" min="0" max="100" value="60"></label></div><p class="mu">El control real de Spotify requiere Premium y la API oficial (ver README).</p></div>
+<div class="grid"><div class="card big"><h3>Reproductor (demo)<span class="eq ${S.playing?'on':''}"><i></i><i></i><i></i><i></i></span></h3><b>${esc(c.t)}</b> <span class="mu">${esc(c.a)} · sugerida por ${esc(c.by)}</span><div class="row"><button class="b" onclick="S.playing=!S.playing;save();go('Música')">${S.playing?'Pausar':'Reproducir'}</button><button class="g" onclick="skip()">Saltar</button><label class="mu">Volumen <input type="range" min="0" max="100" value="60"></label></div><p class="mu">El control real de Spotify requiere Premium y la API oficial (ver README).</p></div>
 <div class="card"><h3>Sugerir canción</h3><div class="row"><input id="st" placeholder="Título"><input id="sa" placeholder="Artista"><button class="b" onclick="sugg()">Añadir</button></div></div></div>
 <h3 style="margin-top:20px">Cola de sugerencias</h3><div class="card">${S.queue.map(q=>`<div class="row"><div class="grow"><b>${esc(q.t)}</b> — ${esc(q.a)}<div class="mu">por ${esc(q.by)} · ${{p:'Pendiente',ok:'Aprobada',x:'Rechazada'}[q.s]}</div></div>
 ${q.s=='p'?`<button class="b" onclick="qs(${q.id},'ok')">Aprobar</button><button class="g" onclick="qs(${q.id},'x')">Rechazar</button>`:''}<button class="r" onclick="ask('¿Bloquear esta canción para siempre?',()=>{S.queue=S.queue.filter(z=>z.id!=${q.id});save();go('Música')})">Bloquear</button></div>`).join('')||'<p class="mu">Sin sugerencias todavía.</p>'}</div>${comM()}`},
@@ -166,5 +218,9 @@ async function sendGame(){const n=$('gn').value.trim(),f=$('img').files[0];
 async function sendMusic(){const t=$('mt').value.trim(),a=$('ma').value.trim();if(!t||!a)return toast('Escribe la canción y el creador');
  const r=await sb.from('music_suggestions').insert({user_name:uname(),title:t,artist:a});if(r.error)return toast(r.error.code=='23505'?'Esa canción ya fue sugerida.':'No se pudo enviar: '+r.error.message);
  toast('¡Canción enviada!');await loadCom();go('Sugerencias')}
+const IC={Inicio:'🏠',Juegos:'🎮',Música:'🎵',Calendario:'📅',Comunidad:'💬',Contenido:'✨',Estadísticas:'📊',Ajustes:'⚙️','Sugerir juego':'🎮','Sugerir música':'🎵',Sugerencias:'💜'};
+function enter(){const v=$('view');v.classList.remove('enter');v.querySelectorAll('.card,.day').forEach((c,i)=>c.style.setProperty('--i',Math.min(i,10)));void v.offsetWidth;v.classList.add('enter')}
+addEventListener('pointermove',e=>{const c=e.target.closest&&e.target.closest('.card');if(c){const r=c.getBoundingClientRect();c.style.setProperty('--mx',e.clientX-r.left+'px');c.style.setProperty('--my',e.clientY-r.top+'px')}});
+setInterval(()=>document.querySelectorAll('.cd').forEach(e=>{const d=new Date(e.dataset.t)-Date.now();if(d<=0){e.textContent='¡Es la hora del directo!';return}const s=Math.floor(d/1e3),p=n=>String(n).padStart(2,'0');e.textContent=(s>=86400?Math.floor(s/86400)+'d ':'')+p(Math.floor(s%86400/3600))+':'+p(Math.floor(s%3600/60))+':'+p(s%60)}),1000);
 init();
 </script></body></html>
